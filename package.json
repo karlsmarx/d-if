@@ -1,0 +1,24 @@
+{
+  "name": "d-if",
+  "version": "0.0.1",
+  "description": "An neutral test suite to compare API implementations",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karlsmarx/d-if.git"
+  },
+  "keywords": [
+    "api",
+    "test",
+    "compatibility"
+  ],
+  "author": "Karl Alexander",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/karlsmarx/d-if/issues"
+  },
+  "homepage": "https://github.com/karlsmarx/d-if#readme"
+}
