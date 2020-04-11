@@ -67,3 +67,4 @@ class RequestController {
 }
 
 export default RequestController;
+export { methods as METHODS };

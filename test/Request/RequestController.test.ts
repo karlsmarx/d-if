@@ -1,18 +1,19 @@
 import assert from "assert";
-import RequestController from "../../core/request/RequestController";
+
+import RequestController, { METHODS } from "../../core/request/RequestController";
 
 const controller = new RequestController();
 const host = "http://localhost:8090";
 
 export default describe("RequestController Tests", () => {
     it("Should GET in /", async () => {
-        const response = await controller.sendRequest(host, controller.METHODS.GET);
+        const response = await RequestController.sendRequest(host, METHODS.GET);
         assert.equal(response, "Hello World!");
     });
 
     it("Should POST in /", async () => {
         const data = { test: "post" };
-        const response = await controller.sendRequest(host, controller.METHODS.POST, data);
+        const response = await RequestController.sendRequest(host, METHODS.POST, data);
 
         assert.deepStrictEqual(response, data);
     });
@@ -20,7 +21,7 @@ export default describe("RequestController Tests", () => {
     it("Should PUT in /", async () => {
         const data = { test: "put" };
         const id = Math.floor(Math.random() * 10);
-        const response = await controller.sendRequest(`${host}/${id}`, controller.METHODS.PUT, data);
+        const response = await RequestController.sendRequest(`${host}/${id}`, METHODS.PUT, data);
 
         assert.deepStrictEqual(response, { id, ...data });
     });
@@ -28,21 +29,21 @@ export default describe("RequestController Tests", () => {
     it("Should PATCH in /", async () => {
         const data = { test: "patch" };
         const id = Math.floor(Math.random() * 10);
-        const response = await controller.sendRequest(`${host}/${id}`, controller.METHODS.PATCH, data);
+        const response = await RequestController.sendRequest(`${host}/${id}`, METHODS.PATCH, data);
 
         assert.deepStrictEqual(response, { id, ...data });
     });
 
     it("Should DELETE in /", async () => {
         const id = Math.floor(Math.random() * 10);
-        const response = await controller.sendRequest(`${host}/${id}`, controller.METHODS.DELETE);
+        const response = await RequestController.sendRequest(`${host}/${id}`, METHODS.DELETE);
 
         assert.equal(response, id);
     });
 
     it("Should fail to GET by 404", async () => {
         try {
-            await controller.sendRequest(`${host}/404`, controller.METHODS.GET);
+            await RequestController.sendRequest(`${host}/404`, METHODS.GET);
         } catch(err) {
             assert.equal(err, "FAILED_REQUEST_STATUS_404");
         }
