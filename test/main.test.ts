@@ -9,6 +9,7 @@ const agent = request.agent(app);
 // Test suites
 import requestTests from "./Request";
 import storeTests from "./Store";
+import compareTests from "./Compare";
 
 describe("Tests", function () {
     let serverReady: any;
@@ -41,4 +42,8 @@ describe("Tests", function () {
     // describe("Store Tests", () => {
     //     storeTests.LowDB;
     // });
+
+    describe("Compare Tests", () => {
+        compareTests.Diff;
+    });
 });
