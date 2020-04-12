@@ -12,7 +12,14 @@ Using a list of desired endpoints to compare, the difference is based on name of
 {
     "endpoints": [
         { "url": "localhost:8090/v1/user", "method": "GET" },
-        { "url": "localhost:8090/v1/user", "method": "POST" }
+        { 
+            "url": "localhost:8090/v1/user",
+            "method": "POST",
+            "data": {
+                "name": "Karl Alexander",
+                "profession": "Developer",
+            }
+        }
     ]
 }
 ```

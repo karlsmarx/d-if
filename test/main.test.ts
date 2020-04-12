@@ -34,5 +34,6 @@ describe("Tests", function () {
 
     describe("Request Tests", () => {
         requestTests.RequestController;
+        requestTests.Request;
     })
 });

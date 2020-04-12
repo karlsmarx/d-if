@@ -1,23 +1,16 @@
 import axios from "axios";
 
 import util from "../util";
+import methods from "./Method";
 
 // Add a response interceptor to format request errors
 axios.interceptors.response.use((response) => response, (error) => {
-    return Promise.reject(`FAILED_REQUEST_STATUS_${error.response.status}`);
+    if (error.response) return Promise.reject(`FAILED_REQUEST_STATUS_${error.response.status}`);
+    return Promise.reject(error.code);
 });
 
-// Supported methods
-enum methods {
-    GET = "get",
-    POST = "post",
-    PUT = "put",
-    PATCH = "patch",
-    DELETE = "delete",
-};
-
 // Request class to use axios in concurrence
-class Request {
+class CookedRequest {
     public url: string;
     public method: methods;
     public data: Object = {};
@@ -43,12 +36,12 @@ class RequestController {
 
     // Cook a new instance of Request class
     makeRequest(url: string, method: methods, data?: Object) {
-        return new Request(url, method, data);
+        return new CookedRequest(url, method, data);
     }
 
     // Get a list of Request instances and try to execute. The stopOnFail
     // option defines if the method will stop when one of requests fail.
-    async sendConcurrent(requests: Request[], stopOnFail: boolean = true) {
+    async sendConcurrent(requests: CookedRequest[], stopOnFail: boolean = true) {
         const responses = await Promise.all(requests.map(async (request) => {
             if (stopOnFail) return request.get();
 
@@ -67,4 +60,3 @@ class RequestController {
 }
 
 export default RequestController;
-export { methods as METHODS };

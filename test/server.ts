@@ -6,28 +6,28 @@ const app: express.Application = express();
 // Parser JSON body
 app.use(bodyParser.json());
 
-// Ensure a simple get
-app.get("/", (req, res) => {
-    res.send("Hello World!");
+// Ensure a simple get that return params as body
+app.get("/user", (req, res) => {
+    res.send({ message: "Hello World!", ...req.params });
 });
 
 // Ensure a post that returns the post body
-app.post("/", (req, res) => {
+app.post("/user", (req, res) => {
     res.send(req.body);
 });
 
 // Ensure a put that returns the put body and id
-app.put("/:id", (req, res) => {
+app.put("/user/:id", (req, res) => {
     res.send({ ...req.body, id: Number(req.params.id) });
 });
 
 // Ensure a patch that returns the patch body and id
-app.patch("/:id", (req, res) => {
+app.patch("/user/:id", (req, res) => {
     res.send({ ...req.body, id: Number(req.params.id) });
 });
 
 // Ensure a delete that returns the id
-app.delete("/:id", (req, res) => {
+app.delete("/user/:id", (req, res) => {
     res.send(req.params.id);
 });
 
