@@ -8,6 +8,7 @@ const agent = request.agent(app);
 
 // Test suites
 import requestTests from "./Request";
+import storeTests from "./Store";
 
 describe("Tests", function () {
     let serverReady: any;
@@ -32,8 +33,12 @@ describe("Tests", function () {
 		}
     });
 
-    describe("Request Tests", () => {
-        requestTests.RequestController;
-        requestTests.Request;
-    })
+    // describe("Request Tests", () => {
+    //     requestTests.RequestController;
+    //     requestTests.Request;
+    // });
+
+    // describe("Store Tests", () => {
+    //     storeTests.LowDB;
+    // });
 });

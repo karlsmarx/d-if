@@ -25,6 +25,9 @@
   "homepage": "https://github.com/karlsmarx/d-if#readme",
   "dependencies": {
     "axios": "0.19.x",
+    "diff": "^4.0.2",
+    "lodash-id": "^0.14.0",
+    "lowdb": "^1.0.0",
     "typescript": "^3.8.3"
   },
   "devDependencies": {
