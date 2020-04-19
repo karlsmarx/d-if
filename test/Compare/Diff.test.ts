@@ -15,6 +15,7 @@ export default describe("Diff test", () => {
 
     it("Should compare two objects using values", async () => {
         const result = await diff.compare(previous, actual, false);
+        console.log(result);
         assert.equal(result.difference.filter((el) => (el.removed || el.added)).length, 2);
     });
 });

@@ -1,0 +1,22 @@
+{
+    "endpoints": [
+        {
+            "command": "user",
+            "method": "get"
+        },
+        {
+            "command": "user",
+            "method": "get",
+            "params": {
+                "name": "Karl"
+            }
+        },
+        {
+            "command": "user",
+            "method": "post",
+            "data": {
+                "test": "request"
+            }
+        }
+    ]
+}

@@ -5,36 +5,40 @@ const FileSync = require("lowdb/adapters/FileSync");
 const lodashId = require("lodash-id");
 
 class LowDB implements Store {
-    private dbPath: string;
-    private adapter: any;
-    private db: any;
+  private dbPath: string;
+  private adapter: any;
+  private db: any;
 
-    constructor(dbPath: string) {
-        this.dbPath = dbPath;
+  constructor (dbPath: string) {
+    this.dbPath = dbPath;
 
-        this.adapter = new FileSync(dbPath);
+    this.adapter = new FileSync(this.dbPath);
 
-        this.db = low(this.adapter);
-        this.db._.mixin(lodashId);
-    }
+    this.db = low(this.adapter);
+    this.db._.mixin(lodashId);
+  }
 
-    async insert(table: string, params: Object) {
-        const collection = this.db.defaults({ [table]: [] }).get(table);
-        return collection.insert(params).write();
-    }
+  async insert (table: string, params: Record<string, any>): Promise<any> {
+    const collection = this.db.defaults({[table]: []}).get(table);
+    return collection.insert(params).write();
+  }
 
-    async select(table: string, params: Object, limit?: number) {
-        return this.db.get(table).filter(params).take(limit).value();
-    }
+  async select (
+      table: string,
+      params: Record<string, any>,
+      limit?: number,
+  ): Promise<any> {
+    return this.db.get(table).filter(params).take(limit).value();
+  }
 
-    async delete(table: string, params: Object) {
-        return this.db.get(table).remove(params).write();
-    }
+  async delete (table: string, params: Record<string, any>): Promise<any> {
+    return this.db.get(table).remove(params).write();
+  }
 
-    async findOne(table: string, params: Object) {
-        const result = this.db.get(table).filter(params).take(1).value();
-        return result[0];
-    }
+  async findOne (table: string, params: Record<string, any>): Promise<any> {
+    const result = this.db.get(table).filter(params).take(1).value();
+    return result[0];
+  }
 }
 
 export default LowDB;

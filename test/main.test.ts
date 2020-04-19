@@ -4,46 +4,47 @@ import "mocha";
 import request from "supertest";
 import app from "./server";
 
-const agent = request.agent(app);
+request.agent(app);
 
 // Test suites
-import requestTests from "./Request";
-import storeTests from "./Store";
+// import requestTests from "./Request";
+// import storeTests from "./Store";
 import compareTests from "./Compare";
 
 describe("Tests", function () {
-    let serverReady: any;
-    this.timeout(3000);
+  let serverReady: any;
 
-    // Wait for server start
-    app.on("serverReady", () => {
-        console.log("Server Ready");
+  this.timeout(3000); // eslint-disable-line
 
-        if (serverReady instanceof Function) {
-			serverReady();
-		} else {
-			serverReady = true;
-		}
-    });
+  // Wait for server start
+  app.on("serverReady", () => {
+    console.log("Server Ready");
 
-    before((done) => {
-        if (serverReady === true) {
-			done();
-		} else {
-			serverReady = done;
-		}
-    });
+    if (serverReady instanceof Function) {
+      serverReady();
+    } else {
+      serverReady = true;
+    }
+  });
 
-    // describe("Request Tests", () => {
-    //     requestTests.RequestController;
-    //     requestTests.Request;
-    // });
+  before((done) => {
+    if (serverReady === true) {
+      done();
+    } else {
+      serverReady = done;
+    }
+  });
 
-    // describe("Store Tests", () => {
-    //     storeTests.LowDB;
-    // });
+  // describe("Request Tests", () => {
+  //     requestTests.RequestController;
+  //     requestTests.Request;
+  // });
 
-    describe("Compare Tests", () => {
-        compareTests.Diff;
-    });
+  // describe("Store Tests", () => {
+  //     storeTests.LowDB;
+  // });
+
+  describe("Compare Tests", () => {
+    compareTests.Diff;
+  });
 });
