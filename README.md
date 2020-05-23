@@ -11,9 +11,9 @@ Using a list of desired endpoints to compare, the difference is based on name of
 ```JSON
 {
     "endpoints": [
-        { "url": "localhost:8090/v1/user", "method": "GET" },
+        { "url": "v1/user", "method": "GET" },
         { 
-            "url": "localhost:8090/v1/user",
+            "url": "v1/user",
             "method": "POST",
             "data": {
                 "name": "Karl Alexander",

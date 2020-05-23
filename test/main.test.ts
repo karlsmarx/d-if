@@ -7,9 +7,10 @@ import app from "./server";
 request.agent(app);
 
 // Test suites
-// import requestTests from "./Request";
-// import storeTests from "./Store";
+import requestTests from "./Request";
+import storeTests from "./Store";
 import compareTests from "./Compare";
+import e2eTests from "./E2E";
 
 describe("Tests", function () {
   let serverReady: any;
@@ -35,16 +36,20 @@ describe("Tests", function () {
     }
   });
 
-  // describe("Request Tests", () => {
-  //     requestTests.RequestController;
-  //     requestTests.Request;
-  // });
+  describe("Request Tests", () => {
+    requestTests.RequestController;
+    requestTests.Request;
+  });
 
-  // describe("Store Tests", () => {
-  //     storeTests.LowDB;
-  // });
+  describe("Store Tests", () => {
+    storeTests.LowDB;
+  });
 
   describe("Compare Tests", () => {
     compareTests.Diff;
+  });
+
+  describe("End to End Tests", () => {
+    e2eTests;
   });
 });
