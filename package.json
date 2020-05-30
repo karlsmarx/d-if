@@ -10,7 +10,8 @@
     "test": "mocha --exit -r ts-node/register test/main.test.ts",
     "server": "ts-node-dev test/server.ts",
     "lint": "eslint core/**/*.ts",
-    "lint:fix": "eslint --fix 'core/**/*.ts'"
+    "lint:fix": "eslint --fix 'core/**/*.ts'",
+    "cli-test": "npm run server & npm start -- -a htttp://localhost:8090 -e endpoints.json"
   },
   "repository": {
     "type": "git",

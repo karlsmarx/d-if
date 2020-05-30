@@ -1,17 +1,50 @@
 /**
+ * Snapshot type to be used when store data
+ * for future comparations.
+ *
+ * Node doesn't have a good support for static
+ * binary, so for all purposes the data will be a
+ * string that could be manipulated as a Buffer
+ * or stream.
+ */
+interface Snapshot {
+  id?: number;
+  creationDate: Date;
+  data: string;
+  tags?: string[];
+}
+
+/**
+ * Tag interface to use when store metadata tags
+ * for snapshots
+ */
+interface Tag {
+  id?: number;
+  name: string;
+}
+
+/**
  * Store interface to be used in all database connections.
  *
  * This file defines all methods used by d-if to store snapshots
  * persistently.
  */
 interface Store {
-  insert(table: string, params: Record<string, any>): Promise<any>;
+  insert(snapshot: Snapshot, tags?: string[]): Promise<Snapshot>;
 
-  select(table: string, params: Record<string, any>, limit?: number): Promise<any>;
+  select(
+    params: { id?: number; date?: Date },
+    tags?: string[],
+    limit?: number
+  ): Promise<Snapshot[]>;
 
-  delete(table: string, params: Record<string, any>): Promise<any>;
+  delete(id: number): Promise<Snapshot>;
 
-  findOne(table: string, params: Record<string, any>): Promise<any>;
+  findOne(params: { id?: number; date?: Date }): Promise<Snapshot>;
 }
 
 export default Store;
+export {
+  Snapshot,
+  Tag,
+};

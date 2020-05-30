@@ -1,4 +1,4 @@
-import Store from "./Store";
+import Store, {Snapshot} from "./Store";
 
 const low = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
@@ -18,25 +18,65 @@ class LowDB implements Store {
     this.db._.mixin(lodashId);
   }
 
-  async insert (table: string, params: Record<string, any>): Promise<any> {
-    const collection = this.db.defaults({[table]: []}).get(table);
-    return collection.insert(params).write();
+  async insert (snapshot: Snapshot, tags?: string[]): Promise<Snapshot> {
+    const snapshotCollection = this.db.defaults({["snapshot"]: []}).get("snapshot");
+    const data = snapshotCollection.insert(snapshot).write();
+
+    if (tags) {
+      const tagsCollection = this.db.defaults({["tag"]: []}).get("tag");
+      const tagsRelationCollection = this.db.defaults({["snapshotTag"]: []}).get("snapshotTag");
+
+      tags.forEach((tag) => {
+        let foundTag = this.db.get("tag").filter({name: tag}).take(1).value()[0];
+        if (!foundTag) {
+          foundTag = tagsCollection.insert({name: tag}).write();
+        }
+
+        tagsRelationCollection.insert({snapshotId: data.id, tagId: foundTag.id}).write();
+      });
+    }
+
+    return {...data, tags: tags ? tags : []};
   }
 
+  // @todo Better filter for dates only by day
   async select (
-      table: string,
-      params: Record<string, any>,
-      limit?: number,
-  ): Promise<any> {
-    return this.db.get(table).filter(params).take(limit).value();
+      params: { id?: number; creationDate?: Date },
+      tags: string[] = [],
+  ): Promise<Snapshot[]> {
+    let result: any;
+
+    if (tags.length > 0) {
+      const foundTags = this.db.get("tag")
+          .filter((tag: any) => tags.indexOf(tag.name) != -1)
+          .value();
+
+      const tagsId = foundTags.map((foundTag: any) => foundTag.id);
+      const foundTagsRelation = this.db.get("snapshotTag")
+          .filter((snapTag: any) => tagsId.indexOf(snapTag.tagId) != -1)
+          .map("snapshotId")
+          .value();
+
+      result = this.db.get("snapshot")
+          .filter((snap: any) => foundTagsRelation.indexOf(snap.id) != -1)
+          .value();
+    }
+
+    if (!result) result = this.db.get("snapshot").filter(params).value();
+
+    return result.map((snap: any) => {
+      snap.tags = tags;
+      return snap;
+    });
   }
 
-  async delete (table: string, params: Record<string, any>): Promise<any> {
-    return this.db.get(table).remove(params).write();
+  async delete (id: number): Promise<Snapshot> {
+    const result = this.db.get("snapshot").remove({id}).write();
+    return result[0];
   }
 
-  async findOne (table: string, params: Record<string, any>): Promise<any> {
-    const result = this.db.get(table).filter(params).take(1).value();
+  async findOne (params: { id?: number; date?: Date }): Promise<Snapshot> {
+    const result = this.db.get("snapshot").filter(params).take(1).value();
     return result[0];
   }
 }

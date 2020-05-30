@@ -1,3 +1,38 @@
 {
-  "test": []
+  "snapshot": [
+    {
+      "creationDate": "2020-05-30T22:25:58.930Z",
+      "data": "{\"name\":\"TaggedSnap\"}",
+      "id": "e025987f-0e78-4c26-821b-fb143e0590bb",
+      "tags": [
+        "test"
+      ]
+    },
+    {
+      "creationDate": "2020-05-30T22:26:14.863Z",
+      "data": "{\"name\":\"TaggedSnap\"}",
+      "id": "5e1f1a16-5497-4719-9a67-73f5d936a692",
+      "tags": [
+        "test"
+      ]
+    }
+  ],
+  "tag": [
+    {
+      "name": "test",
+      "id": "6db7f7c9-c1af-4207-98da-9459c3a1811b"
+    }
+  ],
+  "snapshotTag": [
+    {
+      "snapshotId": "e025987f-0e78-4c26-821b-fb143e0590bb",
+      "tagId": "6db7f7c9-c1af-4207-98da-9459c3a1811b",
+      "id": "bd4f03e4-346f-4d9c-adc4-671bb12fa1f3"
+    },
+    {
+      "snapshotId": "5e1f1a16-5497-4719-9a67-73f5d936a692",
+      "tagId": "6db7f7c9-c1af-4207-98da-9459c3a1811b",
+      "id": "6ddf471d-9afa-436b-b4aa-90b06d38bd6a"
+    }
+  ]
 }

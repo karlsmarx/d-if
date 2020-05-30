@@ -29,7 +29,7 @@ Define the database to be used as storage, if needed. The default beahavior is u
 
 Could be a lowdb file, a mongo or mysql url connection.
 
-##### --endpoints (alias: -d, required)
+##### --endpoints (alias: -e, required)
 
 Define the file that contains the endpoint list to connect, with the format as defined in home.
 
