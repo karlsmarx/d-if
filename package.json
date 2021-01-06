@@ -32,7 +32,7 @@
     "d-if": "./bin/d-if"
   },
   "dependencies": {
-    "axios": "0.19.x",
+    "axios": "0.21.x",
     "colors": "^1.4.0",
     "diff": "^4.0.2",
     "lodash-id": "^0.14.0",
